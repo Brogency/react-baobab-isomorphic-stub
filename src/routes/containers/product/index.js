@@ -1,5 +1,6 @@
 import React from 'react'
 import SchemaBranchMixin from 'baobab-react-schemabranchmixin';
+import BaobabPropTypes from 'baobab-prop-types';
 import {Link} from 'react-router'
 
 
@@ -32,12 +33,16 @@ const Greet =  React.createClass({
 export default React.createClass({
     displayName: 'Main',
 
+    contextTypes: {
+        tree: BaobabPropTypes.baobab,
+    },
+
     render: function() {
         return (
             <div>
                 <h1>Product Page</h1>
                 <Link to="/">back</Link>
-                <Greet />
+                <Greet tree={this.context.tree.select('greet')} />
             </div>
         );
     },

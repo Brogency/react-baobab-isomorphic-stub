@@ -17,6 +17,7 @@
   "dependencies": {
     "babel-polyfill": "6.5.0",
     "baobab": "^2.3.3",
+    "baobab-prop-types": "^1.0.0",
     "baobab-react": "^1.0.1",
     "baobab-react-schemabranchmixin": "^1.0.9",
     "fetch-plus": "3.6.1",
