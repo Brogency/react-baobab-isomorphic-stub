@@ -1,17 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import * as ReactRouter from "react-router";
-import Transmit from "react-transmit";
-import createElementFactory from './create-element-factory';
-import tree from './tree';
-
-import routesContainer from "routes/route";
+import { Router, browserHistory } from "react-router";
+import { render } from 'baobab-resolver'
+import routes from "routes/route";
 
 /**
  * Fire-up React Router.
  */
-const reactRoot = window.document.getElementById("react-root");
-Transmit.render(ReactRouter.Router, {routes: routesContainer, history: ReactRouter.browserHistory, createElement: createElementFactory(tree)}, reactRoot);
+const reactRoot = window.document.getElementById('react-root');
+
+render(
+    <Router routes={routes} history={browserHistory} />,
+    reactRoot,
+    null,
+    { immutable: false }
+);
 
 /**
  * Detect whether the server-side render has been discarded due to an invalid checksum.

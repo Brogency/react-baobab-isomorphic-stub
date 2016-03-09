@@ -4,11 +4,10 @@ import koaProxy from "koa-proxy";
 import koaStatic from "koa-static";
 import React from "react";
 import ReactDOM from "react-dom/server";
-import * as ReactRouter from "react-router";
-import Transmit from "react-transmit";
+import { match, RouterContext } from 'react-router';
 
 import routesContainer from "routes/route";
-import createElementFactory from './create-element-factory';
+import { renderToString } from 'baobab-resolver';
 
 try {
 	const app      = koa();
@@ -23,7 +22,7 @@ try {
 			const webserver = __PRODUCTION__ ? "" : `//${this.hostname}:8080`;
 			const location  = this.path;
 
-			ReactRouter.match({routes, location}, (error, redirectLocation, renderProps) => {
+			match({routes, location}, (error, redirectLocation, renderProps) => {
 				if (redirectLocation) {
 					this.redirect(redirectLocation.pathname + redirectLocation.search, "/");
 					return;
@@ -34,26 +33,28 @@ try {
 					return;
 				}
 
-				Transmit.renderToString(ReactRouter.RouterContext, renderProps).then(({reactString, reactData}) => {
-					let template = (
-						`<!doctype html>
-						<html>
-							<head>
-								<meta charset="utf-8" />
-								<title>Stub Project</title>
-							</head>
-							<body>
-								<div id="react-root">${reactString}</div>
-							</body>
-						</html>`
-					);
+                                renderToString(<RouterContext {...renderProps} />).then(({ reactString, initialTree }) => {
+                                    this.type = "text/html";
+                                    this.body = (
+                                            `<!doctype html>
+                                            <html>
+                                                    <head>
+                                                            <meta charset="utf-8" />
+                                                            <title>Stub Project</title>
+                                                    </head>
+                                                    <body>
+                                                            <div id="react-root">${reactString}</div>
+                                                    </body>
+                                                    <script>
+                                                        window.__TREE__ = ${JSON.stringify(initialTree)};
+                                                    </script>
+                                                    <script src='${webserver + '/dist/client.js'}'></script>
+                                            </html>`
+                                    );
 
-					this.type = "text/html";
-					this.body = Transmit.injectIntoMarkup(template, reactData, [`${webserver}/dist/client.js`]);
-
-					callback(null);
+                                    callback(null);
 				}).catch(e => {
-					callback(e);
+				callback(e);
 				});
 			});
 		});
