@@ -1,0 +1,9 @@
+web:
+  build: .
+  command: npm run watch
+  ports:
+  - "8000:8000"
+  - "8080:8080"
+  - "35729:35729"
+  volumes:
+  - .:/app/user

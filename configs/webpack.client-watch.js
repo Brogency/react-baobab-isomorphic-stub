@@ -1,7 +1,7 @@
 var webpack = require("webpack");
 var config = require("./webpack.client.js");
 var wds = {
-	hostname: process.env.HOSTNAME || "localhost",
+	hostname: "0.0.0.0",
 	port: 8080
 };
 
