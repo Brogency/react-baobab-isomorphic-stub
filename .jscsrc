@@ -2,7 +2,7 @@
     "preset": "airbnb",
     "maxErrors": 100,
     "maximumLineLength": 120,
-    "validateIndentation": 2,
+    "validateIndentation": 4,
     "esnext": true,
     "requireEnhancedObjectLiterals": true,
     "validateQuoteMarks": {

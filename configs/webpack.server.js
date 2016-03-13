@@ -1,47 +1,25 @@
-var webpack       = require("webpack");
-var nodeExternals = require("webpack-node-externals");
-var path          = require("path");
-var fs            = require("fs");
+var webpack = require('webpack');
+var nodeExternals = require('webpack-node-externals');
+var path = require('path');
+var fs = require('fs');
+var commonConfig = require('./webpack.common.js');
+var _ = require('lodash');
 
-module.exports = {
-	target:  "node",
-	cache:   false,
-	context: __dirname,
-	debug:   false,
-	devtool: "source-map",
-	entry:   ["../src/server"],
-	output:  {
-		path:          path.join(__dirname, "../dist"),
-		filename:      "server.js"
-	},
-	plugins: [
-		new webpack.DefinePlugin({__CLIENT__: false, __SERVER__: true, __PRODUCTION__: true, __DEV__: false}),
-		new webpack.DefinePlugin({"process.env": {NODE_ENV: '"production"'}})
-	],
-	module:  {
-		loaders: [
-			{test: /\.json$/, loaders: ["json"]},
-			{test: /\.(ico|gif|png|jpg|jpeg|svg|webp|eot|woff|ttf)$/, loaders: ["file?context=static&name=/[path][name].[ext]"], exclude: /node_modules/},
-			{test: /\.scss$/, loader: 'css-loader?minimize!autoprefixer-loader!sass-loader?outputStyle=expanded&includePaths[]=' + (path.resolve(__dirname, './node_modules'))},
-			{test: /\.js$/, loaders: ["babel?presets[]=es2015&presets[]=stage-0&presets[]=react"], exclude: /node_modules/}
-		],
-		postLoaders: [
-		],
-		noParse: /\.min\.js/
-	},
-	externals: [nodeExternals({
-		whitelist: ["webpack/hot/poll?1000"]
-	})],
-	resolve: {
-		modulesDirectories: [
-			"src",
-			"node_modules",
-			"static"
-		],
-		extensions: ["", ".json", ".js", '.scss']
-	},
-	node:    {
-		__dirname: true,
-		fs:        "empty"
-	}
-};
+module.exports = _.merge({}, commonConfig, {
+    target: 'node',
+    devtool: 'source-map',
+    entry: ['../src/server'],
+    output: {
+        path: path.join(__dirname, '../dist'),
+        filename: 'server.js',
+    },
+    plugins: [
+        new webpack.DefinePlugin({ __CLIENT__: false, __SERVER__: true, __PRODUCTION__: true, __DEV__: false }),
+        new webpack.DefinePlugin({ 'process.env': { NODE_ENV: '"production"' } }),
+    ],
+    externals: [
+        nodeExternals({
+            whitelist: ['webpack/hot/poll?1000'],
+        }),
+    ],
+});

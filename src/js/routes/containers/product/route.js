@@ -4,4 +4,4 @@ export default {
     path: '/products',
 
     component: Base,
-}
+};
