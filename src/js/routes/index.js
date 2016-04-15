@@ -1,9 +1,9 @@
 import React from 'react';
 
 export default React.createClass({
-    displayName: 'BaseApp',
+  displayName: 'BaseApp',
 
-    render: function () {
-        return this.props.children;
-    },
+  render: function () {
+    return this.props.children;
+  },
 });

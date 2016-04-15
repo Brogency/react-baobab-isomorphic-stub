@@ -4,10 +4,10 @@ import mainRoute from './containers/main/route';
 import productRoute from './containers/product/route';
 
 export default {
-    component: Base,
+  component: Base,
 
-    childRoutes: [
-        productRoute,
-        mainRoute,
-    ],
+  childRoutes: [
+    productRoute,
+    mainRoute,
+  ],
 };

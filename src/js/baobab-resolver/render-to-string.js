@@ -5,25 +5,28 @@ import Baobab from 'baobab';
 import Wrapper from './wrapper';
 
 export default function (reactElement, baobabOptions = {}) {
-    return new Promise(function (resolve, reject) {
-        const tree = new Baobab({}, _.merge({}, baobabOptions, { immutable: false, asynchronous: false }));
-        const queue = [];
-        const wrappedElement = (
-            <Wrapper onResolve={(promise) => queue.push(promise)} tree={tree}>
-                {reactElement}
-            </Wrapper>
-        );
+  return new Promise(function (resolve, reject) {
+    const tree = new Baobab({}, _.merge({}, baobabOptions, {
+      immutable: false,
+      asynchronous: false
+    }));
+    const queue = [];
+    const wrappedElement = (
+      <Wrapper onResolve={(promise) => queue.push(promise)} tree={tree}>
+        {reactElement}
+      </Wrapper>
+    );
 
-        // Fill queue with promises
-        ReactDOM.renderToStaticMarkup(wrappedElement);
+    // Fill queue with promises
+    ReactDOM.renderToStaticMarkup(wrappedElement);
 
-        tree.unbindAll();
+    tree.unbindAll();
 
-        Promise.all(queue)
-            .then(() => resolve({
-                reactString: ReactDOM.renderToString(wrappedElement),
-                initialTree: tree.serialize(),
-            }))
-            .catch(reject);
-    });
+    Promise.all(queue)
+      .then(() => resolve({
+        reactString: ReactDOM.renderToString(wrappedElement),
+        initialTree: tree.serialize(),
+      }))
+      .catch(reject);
+  });
 };
