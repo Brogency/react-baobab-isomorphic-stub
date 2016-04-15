@@ -3,7 +3,6 @@ import koa from 'koa';
 import koaProxy from 'koa-proxy';
 import koaStatic from 'koa-static';
 import React from 'react';
-import ReactDOM from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 
 import initialRoutes from 'js/routes/route';
@@ -36,19 +35,19 @@ try {
           this.type = 'text/html';
           this.body = (
             `<!doctype html>
-                        <html>
-                          <head>
-                            <meta charset="utf-8" />
-                            <title>Stub Project</title>
-                          </head>
-                          <body>
-                            <div id="react-root">${reactString}</div>
-                          </body>
-                          <script>
-                            window.__TREE__ = ${JSON.stringify(initialTree)};
-                          </script>
-                          <script src='${webserver + '/dist/client.js'}'></script>
-                        </html>`
+              <html>
+                <head>
+                  <meta charset="utf-8" />
+                  <title>Stub Project</title>
+                </head>
+                <body>
+                  <div id="react-root">${reactString}</div>
+                </body>
+                <script>
+                  window.__TREE__ = ${JSON.stringify(initialTree)};
+                </script>
+                <script src='${webserver + '/dist/client.js'}'></script>
+              </html>`
           );
 
           callback(null);
@@ -69,7 +68,7 @@ try {
       console.log('[HMR] Waiting for server-side updates');
 
       module.hot.accept('js/routes/route', () => {
-        routes = require('js/routes/route');
+        routes = require('js/routes/route').default;
       });
 
       module.hot.addStatusHandler((status) => {

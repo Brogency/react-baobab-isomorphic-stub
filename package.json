@@ -1,5 +1,5 @@
 {
-  "name": "baobab-starterkit",
+  "name": "react-baobab-isomporhic-starterkit",
   "description": "Isomorphic starterkit with server-side React + Baobab rendering.",
   "version": "0.0.1",
   "license": "BSD-3-Clause",

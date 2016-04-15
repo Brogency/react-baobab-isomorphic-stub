@@ -17,7 +17,7 @@ module.exports = _.merge({}, commonConfig, {
       __CLIENT__: true,
       __SERVER__: false,
       __PRODUCTION__: true,
-      __DEV__: false
+      __DEV__: false,
     }),
     new webpack.DefinePlugin({ 'process.env': { NODE_ENV: '"production"' } }),
     new webpack.optimize.DedupePlugin(),

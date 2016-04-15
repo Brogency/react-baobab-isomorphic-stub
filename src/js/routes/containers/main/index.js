@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import logo from 'images/logo.png';
-
 export default React.createClass({
   displayName: 'Main',
 
@@ -10,7 +8,9 @@ export default React.createClass({
     return (
       <div>
         <h1>Main Page</h1>
-        <Link to="/products">product</Link>
+        <Link to="/products">
+          product
+        </Link>
       </div>
     );
   },

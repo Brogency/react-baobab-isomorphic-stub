@@ -19,7 +19,7 @@ config.plugins = [
     __CLIENT__: false,
     __SERVER__: true,
     __PRODUCTION__: false,
-    __DEV__: true
+    __DEV__: true,
   }),
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NoErrorsPlugin(),
