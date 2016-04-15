@@ -1,61 +1,63 @@
 import babelPolyfill from 'babel-polyfill';
-import koa from 'koa';
+import Koa from 'koa';
 import koaProxy from 'koa-proxy';
 import koaStatic from 'koa-static';
+import convert from 'koa-convert';
 import React from 'react';
-import { match, RouterContext } from 'react-router';
+import { match as routerMatch, RouterContext } from 'react-router';
 
 import initialRoutes from 'js/routes/route';
 import { renderToString } from 'js/baobab-resolver';
 
+function match(options) {
+  return new Promise((resolve) => {
+    routerMatch(options, (...args) => resolve(args));
+  });
+}
+
 try {
-  const app = koa();
+  const app = new Koa();
   const hostname = '0.0.0.0';
   const port = process.env.PORT || 8000;
   let routes = initialRoutes;
-  app.use(koaStatic('static'));
+  app.use(convert(koaStatic('static')));
 
-  app.use(function *(next) {
-    yield ((callback) => {
-      const webserver = __PRODUCTION__ ? '' : `//${this.hostname}:8080`;
-      const location = this.path;
+  app.use(async (ctx, next) => {
+    const webserver = __PRODUCTION__ ? '' : `//${ctx.hostname}:8080`;
+    const location = ctx.path;
 
-      match({ routes, location }, (error, redirectLocation, renderProps) => {
-        if (redirectLocation) {
-          this.redirect(redirectLocation.pathname + redirectLocation.search, '/');
-          return;
-        }
+    const [error, redirectLocation, renderProps] = await match({ routes, location });
 
-        if (error || !renderProps) {
-          callback(error);
-          return;
-        }
+    if (redirectLocation) {
+      ctx.redirect(redirectLocation.pathname + redirectLocation.search, '/');
+      return;
+    }
 
-        renderToString(<RouterContext {...renderProps} />).then(({ reactString, initialTree }) => {
-          this.type = 'text/html';
-          this.body = (
-            `<!doctype html>
-              <html>
-                <head>
-                  <meta charset="utf-8" />
-                  <title>Stub Project</title>
-                </head>
-                <body>
-                  <div id="react-root">${reactString}</div>
-                </body>
-                <script>
-                  window.__TREE__ = ${JSON.stringify(initialTree)};
-                </script>
-                <script src='${webserver + '/dist/client.js'}'></script>
-              </html>`
-          );
+    if (error || !renderProps) {
+      await next(error);
+      return;
+    }
 
-          callback(null);
-        }).catch(e => {
-          callback(e);
-        });
-      });
-    });
+    const { reactString, initialTree } = await renderToString(<RouterContext {...renderProps} />);
+
+    ctx.type = 'text/html';
+    ctx.body = (
+      `<!doctype html>
+        <html>
+          <head>
+            <meta charset="utf-8" />
+            <title>Stub Project</title>
+          </head>
+          <body>
+            <div id="react-root">${reactString}</div>
+          </body>
+          <script>
+            window.__TREE__ = ${JSON.stringify(initialTree)};
+          </script>
+          <script src='${webserver + '/dist/client.js'}'></script>
+        </html>`
+    );
+    await next();
   });
 
   app.listen(port, () => {
