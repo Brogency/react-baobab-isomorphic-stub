@@ -1,7 +1,8 @@
+var _ = require('lodash');
 var webpack = require('webpack');
 var path = require('path');
+var PolyfillsPlugin = require('webpack-polyfills-plugin');
 var commonConfig = require('./webpack.common.js');
-var _ = require('lodash');
 
 module.exports = _.merge({}, commonConfig, {
   target: 'web',
@@ -22,5 +23,10 @@ module.exports = _.merge({}, commonConfig, {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
+    new PolyfillsPlugin([
+      '_enqueueMicrotask',
+      'Promise',
+      'String/prototype/startsWith',
+    ]),
   ],
 });

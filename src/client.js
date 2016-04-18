@@ -2,6 +2,7 @@ import React from 'react';
 import { Router, browserHistory } from 'react-router';
 import { render } from 'js/baobab-resolver';
 import routes from 'js/routes/route';
+import 'styles/main.scss';
 
 /**
  * Fire-up React Router.

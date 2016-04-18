@@ -5,6 +5,7 @@
   "license": "BSD-3-Clause",
   "main": "dist/server.js",
   "scripts": {
+    "test": "karma start configs/karma.js",
     "start": "forever --minUptime 1000 --spinSleepTime 1000 -c \"node --harmony\" ./dist/server.js",
     "build-server": "webpack --colors --display-error-details --config configs/webpack.server.js",
     "build-client": "webpack --colors --display-error-details --config configs/webpack.client.js",
@@ -25,16 +26,16 @@
     "fetch-plus-json": "3.6.0",
     "file-loader": "0.8.5",
     "isomorphic-fetch": "2.2.1",
-    "koa": "^2.0.0",
-    "koa-convert": "^1.2.0",
-    "koa-proxy": "0.4.1",
-    "koa-static": "2.0.0",
+    "koa": "~2.0.0",
+    "koa-convert": "~1.2.0",
+    "koa-proxy": "~0.4.1",
+    "koa-static": "~2.0.0",
     "lodash": "^4.6.1",
-    "nconf": "^0.8.4",
+    "nconf": "~0.8.4",
     "react": "0.14.7",
     "react-dom": "0.14.7",
     "react-router": "2.0.0",
-    "react-transmit": "3.1.7"
+    "webpack-polyfills-plugin": "0.0.9"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
@@ -55,7 +56,23 @@
     "style-loader": "^0.13.0",
     "webpack": "1.12.13",
     "webpack-dev-server": "1.14.1",
-    "webpack-node-externals": "0.4.1"
+    "webpack-node-externals": "0.4.1",
+    "chai": "^3.4.0",
+    "isparta-loader": "^2.0.0",
+    "karma": "^0.13.14",
+    "karma-chai": "^0.1.0",
+    "karma-coverage": "^0.5.3",
+    "karma-mocha": "^0.2.0",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-phantomjs-shim": "^1.1.2",
+    "karma-sinon": "^1.0.4",
+    "karma-sinon-chai": "^1.1.0",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.3.3",
+    "phantomjs": "^1.9.17",
+    "react-addons-test-utils": "0.14.7",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0"
   },
   "engines": {
     "node": ">=0.10.32"
