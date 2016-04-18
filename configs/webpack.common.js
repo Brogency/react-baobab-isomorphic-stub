@@ -7,7 +7,10 @@ module.exports = {
   debug: false,
   module: {
     loaders: [
-      { test: /\.json$/, loaders: ['json'] },
+      {
+        test: /\.json$/,
+        loaders: ['json'],
+      },
       {
         test: /\.(ico|gif|png|jpg|jpeg|svg|webp|eot|woff|ttf)$/,
         loaders: ['file?context=static&name=/[path][name].[ext]'],
@@ -15,7 +18,12 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: 'style-loader!css-loader?minimize!autoprefixer-loader!sass-loader?outputStyle=expanded&includePaths[]=' + (path.resolve(__dirname, './node_modules')),
+        loaders: [
+          'style-loader',
+          'css-loader?minimize',
+          'autoprefixer-loader',
+          'sass-loader?outputStyle=expanded&includePaths[]=' + (path.resolve(__dirname, './node_modules')),
+        ],
       },
     ],
     postLoaders: [
