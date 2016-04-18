@@ -1,21 +1,21 @@
 var webpack = require('webpack');
-var config = require('./webpack.client.js');
-var wds = {
-  hostname: process.env.HOSTNAME || 'localhost',
-  port: 8080,
-};
+var clientConfig = require('./webpack.client.js');
+var config = require('./config');
 
-config.cache = true;
-config.debug = true;
-config.devtool = 'cheap-module-eval-source-map';
+var wdsHost = config.get('FRONTEND_DEV_HOST');
+var wdsPort = config.get('FRONTEND_DEV_PORT');
 
-config.entry.unshift(
-  'webpack-dev-server/client?http://' + wds.hostname + ':' + wds.port,
+clientConfig.cache = true;
+clientConfig.debug = true;
+clientConfig.devtool = 'cheap-module-eval-source-map';
+
+clientConfig.entry.unshift(
+  'webpack-dev-server/client?http://' + wdsHost + ':' + wdsPort,
   'webpack/hot/only-dev-server'
 );
 
-config.devServer = {
-  publicPath: 'http://' + wds.hostname + ':' + wds.port + '/dist',
+clientConfig.devServer = {
+  publicPath: 'http://' + wdsHost + ':' + wdsPort + '/dist',
   hot: true,
   inline: false,
   lazy: false,
@@ -23,14 +23,15 @@ config.devServer = {
   noInfo: true,
   headers: { 'Access-Control-Allow-Origin': '*' },
   stats: { colors: true },
-  host: wds.hostname,
+  host: '0.0.0.0',
+  port: wdsPort,
 };
 
-config.output.publicPath = config.devServer.publicPath;
-config.output.hotUpdateMainFilename = 'update/[hash]/update.json';
-config.output.hotUpdateChunkFilename = 'update/[hash]/[id].update.js';
+clientConfig.output.publicPath = clientConfig.devServer.publicPath;
+clientConfig.output.hotUpdateMainFilename = 'update/[hash]/update.json';
+clientConfig.output.hotUpdateChunkFilename = 'update/[hash]/[id].update.js';
 
-config.plugins = [
+clientConfig.plugins = [
   new webpack.DefinePlugin({
     __CLIENT__: true,
     __SERVER__: false,
@@ -41,7 +42,7 @@ config.plugins = [
   new webpack.NoErrorsPlugin(),
 ];
 
-config.module.postLoaders = [
+clientConfig.module.postLoaders = [
   {
     test: /\.js$/,
     loaders: ['babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&presets[]=react&presets[]=react-hmre'],
@@ -49,4 +50,4 @@ config.module.postLoaders = [
   },
 ];
 
-module.exports = config;
+module.exports = clientConfig;

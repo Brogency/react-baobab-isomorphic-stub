@@ -3,46 +3,50 @@ import Koa from 'koa';
 import koaProxy from 'koa-proxy';
 import koaStatic from 'koa-static';
 import convert from 'koa-convert';
+
 import React from 'react';
 import { match as routerMatch, RouterContext } from 'react-router';
-
-import initialRoutes from 'js/routes/route';
 import { renderToString } from 'js/baobab-resolver';
+import initialRoutes from 'js/routes/route';
+import config from '../configs/config';
 
 function match(options) {
-  return new Promise((resolve) => {
-    routerMatch(options, (...args) => resolve(args));
+  return new Promise((resolve, reject) => {
+    routerMatch(options, (error, redirectLocation, renderProps) => {
+      if (error || !renderProps) {
+        reject(error);
+      } else {
+        resolve([redirectLocation, renderProps]);
+      }
+    });
   });
 }
 
 try {
   const app = new Koa();
-  const hostname = '0.0.0.0';
-  const port = process.env.PORT || 8000;
   let routes = initialRoutes;
+
   app.use(convert(koaStatic('static')));
 
-  app.use(async (ctx, next) => {
-    const webserver = __PRODUCTION__ ? '' : `//${ctx.hostname}:8080`;
+  app.use(async(ctx, next) => {
+    const wdsHost = config.get('FRONTEND_DEV_HOST');
+    const wdsPort = config.get('FRONTEND_DEV_PORT');
+    const webserver = __PRODUCTION__ ? '' : `//${wdsHost}:${wdsPort}`;
     const location = ctx.path;
 
-    const [error, redirectLocation, renderProps] = await match({ routes, location });
+    try {
+      const [redirectLocation, renderProps] = await match({ routes, location });
 
-    if (redirectLocation) {
-      ctx.redirect(redirectLocation.pathname + redirectLocation.search, '/');
-      return;
-    }
+      if (redirectLocation) {
+        ctx.redirect(redirectLocation.pathname + redirectLocation.search, '/');
+        return;
+      }
 
-    if (error || !renderProps) {
-      await next(error);
-      return;
-    }
+      const { reactString, initialTree } = await renderToString(<RouterContext {...renderProps} />);
 
-    const { reactString, initialTree } = await renderToString(<RouterContext {...renderProps} />);
-
-    ctx.type = 'text/html';
-    ctx.body = (
-      `<!doctype html>
+      ctx.type = 'text/html';
+      ctx.body = (
+        `<!doctype html>
         <html>
           <head>
             <meta charset="utf-8" />
@@ -56,13 +60,22 @@ try {
           </script>
           <script src='${webserver + '/dist/client.js'}'></script>
         </html>`
-    );
+      );
+    } catch (error) {
+      ctx.status = 404;
+      ctx.type = 'text/html';
+      ctx.body = 'Requested url not found';
+    }
+
     await next();
   });
 
-  app.listen(port, () => {
+  const serverHost = '0.0.0.0';
+  const serverPort = config.get('PORT');
+
+  app.listen(serverPort, () => {
     console.info('==> ✅  Server is listening');
-    console.info('==> 🌎  Go to http://%s:%s', hostname, port);
+    console.info('==> 🌎  Go to http://%s:%s', serverHost, serverPort);
   });
 
   if (__DEV__) {

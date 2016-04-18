@@ -1,20 +1,20 @@
 var webpack = require('webpack');
-var config = require('./webpack.server.js');
-var wds = {
-  hostname: process.env.HOSTNAME || 'localhost',
-  port: 8080,
-};
+var serverConfig = require('./webpack.server.js');
+var config = require('./config');
 
-config.cache = true;
-config.debug = true;
+var wdsHost = config.get('FRONTEND_DEV_HOST');
+var wdsPort = config.get('FRONTEND_DEV_PORT');
 
-config.entry.unshift(
+serverConfig.cache = true;
+serverConfig.debug = true;
+
+serverConfig.entry.unshift(
   'webpack/hot/poll?1000'
 );
 
-config.output.publicPath = 'http://' + wds.hostname + ':' + wds.port + '/dist';
+serverConfig.output.publicPath = 'http://' + wdsHost + ':' + wdsPort + '/dist';
 
-config.plugins = [
+serverConfig.plugins = [
   new webpack.DefinePlugin({
     __CLIENT__: false,
     __SERVER__: true,
@@ -25,4 +25,4 @@ config.plugins = [
   new webpack.NoErrorsPlugin(),
 ];
 
-module.exports = config;
+module.exports = serverConfig;

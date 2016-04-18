@@ -19,7 +19,8 @@ module.exports = _.merge({}, commonConfig, {
       __PRODUCTION__: true,
       __DEV__: false,
     }),
-    new webpack.DefinePlugin({ 'process.env': { NODE_ENV: '"production"' } }),
+
+    // TODO: check
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
