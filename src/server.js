@@ -23,11 +23,10 @@ function match(options) {
 }
 
 try {
-  const app = new Koa();
   let routes = initialRoutes;
 
+  const app = new Koa();
   app.use(convert(koaStatic('static')));
-
   app.use(async(ctx, next) => {
     const wdsHost = config.get('FRONTEND_DEV_HOST');
     const wdsPort = config.get('FRONTEND_DEV_PORT');
