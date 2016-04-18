@@ -9,7 +9,7 @@ nconf
   .env()
   .defaults({
     FRONTEND_DEV_HOST: 'localhost',
-    FRONTEND_DEV_PORT: 3000,
+    FRONTEND_DEV_PORT: 8080,
     PORT: 8000,
   });
 
