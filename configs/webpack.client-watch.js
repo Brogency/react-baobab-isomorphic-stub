@@ -45,7 +45,7 @@ clientConfig.plugins = [
 clientConfig.module.postLoaders = [
   {
     test: /\.js$/,
-    loaders: ['babel?cacheDirectory=cache/&presets[]=es2015&presets[]=stage-0&presets[]=react&presets[]=react-hmre'],
+    loaders: ['babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&presets[]=react&presets[]=react-hmre'],
     exclude: /node_modules/,
   },
 ];
