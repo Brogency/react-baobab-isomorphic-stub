@@ -42,4 +42,5 @@ clientConfig.module.loaders.push({
     'sass?outputStyle=expanded&includePaths[]=' + (path.resolve(__dirname, './node_modules')),
   ]),
 });
+
 module.exports = clientConfig;
