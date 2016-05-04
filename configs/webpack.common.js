@@ -19,10 +19,10 @@ module.exports = {
       {
         test: /\.scss$/,
         loaders: [
-          'style-loader',
-          'css-loader?minimize',
-          'autoprefixer-loader',
-          'sass-loader?outputStyle=expanded&includePaths[]=' + (path.resolve(__dirname, './node_modules')),
+          'style',
+          'css?minimize',
+          'autoprefixer',
+          'sass?outputStyle=expanded&includePaths[]=' + (path.resolve(__dirname, './node_modules')),
         ],
       },
     ],

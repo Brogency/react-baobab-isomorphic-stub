@@ -16,11 +16,13 @@
     "watch": "concurrently --kill-others \"npm run watch-server-start\" \"npm run watch-server\" \"npm run watch-client\""
   },
   "dependencies": {
+    "axios": "^0.10.0",
     "babel-polyfill": "6.5.0",
     "baobab": "^2.3.3",
     "baobab-prop-types": "^1.0.0",
     "baobab-react": "^1.0.1",
     "baobab-react-schemabranchmixin": "^1.0.9",
+    "extract-text-webpack-plugin": "^1.0.1",
     "fetch-plus": "3.6.1",
     "fetch-plus-bearerauth": "3.5.0",
     "fetch-plus-json": "3.6.0",
@@ -35,6 +37,9 @@
     "react": "0.14.7",
     "react-dom": "0.14.7",
     "react-router": "2.0.0",
+    "redbox-react": "^1.2.3",
+    "transform-keys": "0.0.3",
+    "webpack": "^1.12.15",
     "webpack-polyfills-plugin": "0.0.9"
   },
   "devDependencies": {
@@ -54,7 +59,6 @@
     "node-sass": "^3.4.2",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
-    "webpack": "1.12.13",
     "webpack-dev-server": "1.14.1",
     "webpack-node-externals": "0.4.1",
     "chai": "^3.4.0",
@@ -75,6 +79,6 @@
     "sinon-chai": "^2.8.0"
   },
   "engines": {
-    "node": ">=0.10.32"
+    "node": ">=4.0.0"
   }
 }

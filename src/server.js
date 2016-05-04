@@ -5,10 +5,12 @@ import koaStatic from 'koa-static';
 import convert from 'koa-convert';
 
 import React from 'react';
+import ReactDOM from 'react-dom/server';
 import { match as routerMatch, RouterContext } from 'react-router';
 import { renderToString } from 'js/baobab-resolver';
 import initialRoutes from 'js/routes/route';
 import config from '../configs/config';
+import RedBox from 'redbox-react';
 
 function match(options) {
   return new Promise((resolve, reject) => {
@@ -41,7 +43,8 @@ try {
         return;
       }
 
-      const { reactString, initialTree } = await renderToString(<RouterContext {...renderProps} />);
+      const { reactString, initialTree } = await renderToString(
+        <RouterContext {...renderProps} />);
 
       ctx.type = 'text/html';
       ctx.body = (
@@ -61,9 +64,15 @@ try {
         </html>`
       );
     } catch (error) {
-      ctx.status = 404;
       ctx.type = 'text/html';
-      ctx.body = 'Requested url not found';
+
+      if (error && error.stack) {
+        ctx.status = 500;
+        ctx.body = ReactDOM.renderToStaticMarkup(<RedBox error={error} />);
+      } else {
+        ctx.status = 404;
+        ctx.body = 'Requested url not found';
+      }
     }
 
     await next();

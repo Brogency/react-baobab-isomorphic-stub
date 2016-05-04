@@ -4,12 +4,12 @@ var path = require('path');
 var PolyfillsPlugin = require('webpack-polyfills-plugin');
 var commonConfig = require('./webpack.common.js');
 
-module.exports = _.merge({}, commonConfig, {
+var clientConfig = _.merge({}, commonConfig, {
   target: 'web',
   devtool: false,
   entry: ['../src/client'],
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: path.join(__dirname, '../static/dist'),
     filename: 'client.js',
     chunkFilename: '[name].[id].js',
   },
@@ -22,6 +22,7 @@ module.exports = _.merge({}, commonConfig, {
     }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
+
     new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
     new PolyfillsPlugin([
       '_enqueueMicrotask',
@@ -30,3 +31,5 @@ module.exports = _.merge({}, commonConfig, {
     ]),
   ],
 });
+
+module.exports = clientConfig;

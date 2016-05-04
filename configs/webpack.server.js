@@ -5,7 +5,7 @@ var fs = require('fs');
 var commonConfig = require('./webpack.common.js');
 var _ = require('lodash');
 
-module.exports = _.merge({}, commonConfig, {
+var serverConfig = _.merge({}, commonConfig, {
   target: 'node',
   devtool: 'source-map',
   entry: ['../src/server'],
@@ -27,3 +27,6 @@ module.exports = _.merge({}, commonConfig, {
     }),
   ],
 });
+
+module.exports = serverConfig;
+

@@ -7,6 +7,9 @@ var wdsPort = config.get('FRONTEND_DEV_PORT');
 
 serverConfig.cache = true;
 serverConfig.debug = true;
+serverConfig.watchOptions = {
+  poll: true,
+};
 
 serverConfig.entry.unshift(
   'webpack/hot/poll?1000'
