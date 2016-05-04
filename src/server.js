@@ -47,8 +47,8 @@ try {
         <RouterContext {...renderProps} />);
 
       const styleAsset = __PRODUCTION__ ?
-        `<link rel='stylesheet' href='${webserver + '/dist/main.css'}'>` : ``;
-      
+        `<link rel='stylesheet' href='${webserver + '/dist/client.css'}'>` : ``;
+
       ctx.type = 'text/html';
       ctx.body = (
         `<!doctype html>

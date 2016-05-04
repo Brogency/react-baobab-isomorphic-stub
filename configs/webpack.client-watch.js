@@ -16,6 +16,7 @@ var clientConfig = _.merge({}, commonConfig, {
   entry: [
     'webpack-dev-server/client?http://' + wdsHost + ':' + wdsPort,
     'webpack/hot/only-dev-server',
+    'babel-polyfill',
     '../src/client',
   ],
   output: {
