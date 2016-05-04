@@ -39,6 +39,7 @@
     "react-router": "2.0.0",
     "redbox-react": "^1.2.3",
     "transform-keys": "0.0.3",
+    "url-loader": "^0.5.7",
     "webpack": "^1.12.15",
     "webpack-polyfills-plugin": "0.0.9"
   },
