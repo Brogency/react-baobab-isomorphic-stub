@@ -46,6 +46,9 @@ try {
       const { reactString, initialTree } = await renderToString(
         <RouterContext {...renderProps} />);
 
+      const styleAsset = __PRODUCTION__ ?
+        `<link rel='stylesheet' href='${webserver + '/dist/client.css'}'>` : ``;
+
       ctx.type = 'text/html';
       ctx.body = (
         `<!doctype html>
@@ -53,6 +56,7 @@ try {
           <head>
             <meta charset="utf-8" />
             <title>Stub Project</title>
+            ${styleAsset}
           </head>
           <body>
             <div id="react-root">${reactString}</div>
