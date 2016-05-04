@@ -53,6 +53,7 @@ try {
           <head>
             <meta charset="utf-8" />
             <title>Stub Project</title>
+            <link rel='stylesheet' href='${webserver + '/dist/main.css'}'>
           </head>
           <body>
             <div id="react-root">${reactString}</div>
