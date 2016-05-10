@@ -6,3 +6,5 @@ static/dist
 *.log
 *.map
 /report
+.DS_Store
+.env

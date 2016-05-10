@@ -4,6 +4,8 @@ var path = require('path');
 var fs = require('fs');
 var commonConfig = require('./webpack.common.js');
 var _ = require('lodash');
+var nested = require('postcss-nested');
+var assets = require('postcss-assets');
 
 var serverConfig = _.merge({}, commonConfig, {
   target: 'node',
@@ -26,6 +28,21 @@ var serverConfig = _.merge({}, commonConfig, {
       whitelist: ['webpack/hot/poll?1000'],
     }),
   ],
+});
+
+serverConfig.module.loaders.push({
+  test: /\.css/,
+  loaders: [
+    'fake-style',
+    'css?modules&importLoaders=1&localIdentName=[hash:base64:6]',
+    'postcss',
+  ],
+  postcss: function () {
+    return [
+      nested,
+      assets,
+    ];
+  },
 });
 
 module.exports = serverConfig;
