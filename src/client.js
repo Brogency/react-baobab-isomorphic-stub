@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, browserHistory } from 'react-router';
-import { render } from 'js/baobab-resolver';
+import { render } from 'baobab-react-resolver';
 import routes from 'js/routes/route';
 import 'styles/main.scss';
 

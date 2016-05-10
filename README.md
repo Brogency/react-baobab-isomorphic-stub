@@ -6,7 +6,7 @@ Development
 
 ```bash
 npm install
-npm run watch     # Yes, ONE command for both server AND client development!
+npm run watch
 ```
 
 Production
