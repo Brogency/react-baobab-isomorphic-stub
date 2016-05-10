@@ -1,4 +1,4 @@
-FROM node:4.2
+FROM node:5.8
 RUN npm install -g webpack
 RUN npm install -g karma-cli
 
