@@ -1,8 +1,8 @@
 {
   "name": "react-baobab-isomporhic-stub",
   "description": "Isomorphic starterkit with server-side React + Baobab rendering.",
-  "version": "0.0.1",
-  "license": "BSD-3-Clause",
+  "version": "0.0.2",
+  "license": "MIT",
   "main": "dist/server.js",
   "scripts": {
     "test": "karma start configs/karma.js",
@@ -16,11 +16,13 @@
     "watch": "concurrently --kill-others \"npm run watch-server-start\" \"npm run watch-server\" \"npm run watch-client\""
   },
   "dependencies": {
-    "axios": "^0.10.0",
+    "axios": "^0.11.0",
     "babel-polyfill": "6.5.0",
     "baobab": "^2.3.3",
     "baobab-prop-types": "^1.0.0",
     "baobab-react": "^1.0.1",
+    "baobab-react-mixins": "^1.0.0",
+    "baobab-react-resolver": "^1.0.1",
     "baobab-react-schemabranchmixin": "^1.0.9",
     "extract-text-webpack-plugin": "^1.0.1",
     "fetch-plus": "3.6.1",

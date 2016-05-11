@@ -7,7 +7,7 @@ import convert from 'koa-convert';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { match as routerMatch, RouterContext } from 'react-router';
-import { renderToString } from 'js/baobab-resolver';
+import { renderToString } from 'baobab-react-resolver';
 import initialRoutes from 'js/routes/route';
 import config from '../configs/config';
 import RedBox from 'redbox-react';

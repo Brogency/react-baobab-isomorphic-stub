@@ -1,6 +1,5 @@
 import React from 'react';
-import SchemaBranchMixin from 'baobab-react-schemabranchmixin';
-import BaobabPropTypes from 'baobab-prop-types';
+import { SchemaBranchMixin, BranchMixin } from 'baobab-react-mixins';
 import { Link } from 'react-router';
 
 function Input({ cursor }) {
@@ -32,16 +31,18 @@ const Greet = React.createClass({
 export default React.createClass({
   displayName: 'Main',
 
-  contextTypes: {
-    tree: BaobabPropTypes.baobab,
+  mixins: [BranchMixin],
+
+  cursors: {
+    greet: ['greet'],
   },
 
-  render: function () {
+  render () {
     return (
       <div>
         <h1>Product Page</h1>
         <Link to="/">back</Link>
-        <Greet tree={this.context.tree.select('greet')} />
+        <Greet tree={this.cursors.greet} />
       </div>
     );
   },

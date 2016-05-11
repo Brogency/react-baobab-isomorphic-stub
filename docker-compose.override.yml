@@ -3,4 +3,3 @@ web:
   - ./src:/app/user/src
   - ./configs:/app/user/configs
   - ./static:/app/user/static
-  - ./node_modules:/app/user/node_modules
