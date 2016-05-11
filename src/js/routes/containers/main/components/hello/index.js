@@ -7,6 +7,6 @@ export default React.createClass({
   render() {
     return (
       <div className={hello.main} />
-    )
+    );
   },
 });
