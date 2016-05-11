@@ -34,7 +34,7 @@ serverConfig.module.loaders.push({
   test: /\.css/,
   loaders: [
     'fake-style',
-    'css?modules&importLoaders=1&localIdentName=[name]___[local]---[hash:base64:3]',
+    'css?modules&importLoaders=1&localIdentName=[hash:base64:6]',
     'postcss',
   ],
   postcss: function () {
