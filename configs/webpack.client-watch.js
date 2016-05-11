@@ -52,13 +52,14 @@ var clientConfig = _.merge({}, commonConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
   ],
-  postLoaders: [
-    {
-      test: /\.js$/,
-      loader: 'babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&presets[]=react&presets[]=react-hmre',
-      exclude: /node_modules/,
-    },
-  ],
 });
+
+clientConfig.module.postLoaders = [
+  {
+    test: /\.js$/,
+    loader: 'babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&presets[]=react&presets[]=react-hmre',
+    exclude: /node_modules/,
+  },
+];
 
 module.exports = clientConfig;
