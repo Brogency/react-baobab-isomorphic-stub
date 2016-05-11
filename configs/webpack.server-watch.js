@@ -42,6 +42,12 @@ var serverConfig = _.merge({}, commonConfig, {
       whitelist: ['webpack/hot/poll?1000'],
     }),
   ],
+  postcss: function () {
+    return [
+      nested,
+      assets,
+    ];
+  },
 });
 
 serverConfig.module.loaders.push({
@@ -51,12 +57,6 @@ serverConfig.module.loaders.push({
     'css?modules&importLoaders=1&localIdentName=[name]___[local]---[hash:base64:3]',
     'postcss',
   ],
-  postcss: function () {
-    return [
-      nested,
-      assets,
-    ];
-  },
 });
 
 module.exports = serverConfig;

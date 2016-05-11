@@ -8,7 +8,7 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <h1>Main Page</h1>
+        <h1>Main Pager</h1>
         <Link to="/products">
           product
         </Link>

@@ -58,16 +58,19 @@ var clientConfig = _.merge({}, commonConfig, {
   postLoaders: [
     {
       test: /\.js$/,
-      loader: 'babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&presets[]=react&presets[]=react-hmre',
+      loaders: [
+        'react-hot',
+        'babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&presets[]=react',
+      ],
       exclude: /node_modules/,
     },
   ],
-  postcss: function() {
+  postcss: function () {
     return [
       nested,
       assets,
       reporter(),
-    ]
+    ];
   },
 });
 
@@ -76,7 +79,7 @@ clientConfig.module.loaders.push({
   loaders: [
     'style',
     'css?modules&importLoaders=1&localIdentName=[name]___[local]---[hash:base64:3]',
-    'postcss'
+    'postcss',
   ],
 });
 
