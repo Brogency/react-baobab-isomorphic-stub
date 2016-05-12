@@ -28,21 +28,21 @@ var serverConfig = _.merge({}, commonConfig, {
       whitelist: ['webpack/hot/poll?1000'],
     }),
   ],
-});
-
-serverConfig.module.loaders.push({
-  test: /\.css/,
-  loaders: [
-    'fake-style',
-    'css?modules&importLoaders=1&localIdentName=[name]___[local]---[hash:base64:3]',
-    'postcss',
-  ],
   postcss: function () {
     return [
       nested,
       assets,
     ];
   },
+});
+
+serverConfig.module.loaders.push({
+  test: /\.css/,
+  loaders: [
+    'fake-style',
+    'css?modules&importLoaders=1&localIdentName=[hash:base64:6]',
+    'postcss',
+  ],
 });
 
 module.exports = serverConfig;
