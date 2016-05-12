@@ -5,7 +5,6 @@ var fs = require('fs');
 var commonConfig = require('./webpack.common.js');
 var _ = require('lodash');
 var nested = require('postcss-nested');
-var assets = require('postcss-assets');
 
 var serverConfig = _.merge({}, commonConfig, {
   target: 'node',
@@ -31,7 +30,6 @@ var serverConfig = _.merge({}, commonConfig, {
   postcss: function () {
     return [
       nested,
-      assets,
     ];
   },
 });
