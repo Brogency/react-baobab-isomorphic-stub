@@ -5,7 +5,6 @@ var commonConfig = require('./webpack.common.js');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 var nested = require('postcss-nested');
-var assets = require('postcss-assets');
 var csso = require('postcss-csso');
 
 var clientConfig = _.merge({}, commonConfig, {
@@ -36,7 +35,6 @@ var clientConfig = _.merge({}, commonConfig, {
   postcss: function () {
     return [
       nested,
-      assets,
       autoprefixer,
       csso,
     ];

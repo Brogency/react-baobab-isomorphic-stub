@@ -6,8 +6,8 @@ var path = require('path');
 var wdsHost = config.get('FRONTEND_DEV_HOST');
 var wdsPort = config.get('FRONTEND_DEV_PORT');
 var nested = require('postcss-nested');
-var assets = require('postcss-assets');
-var reporter = require('postcss-browser-reporter');
+var reporter = require('postcss-reporter');
+var stylelint = require('stylelint');
 
 var publicPath = 'http://' + wdsHost + ':' + wdsPort + '/dist';
 
@@ -62,12 +62,12 @@ var clientConfig = _.merge({}, commonConfig, {
       exclude: /node_modules/,
     },
   ],
-  postcss: function() {
+  postcss: function () {
     return [
       nested,
-      assets,
-      reporter(),
-    ]
+      stylelint,
+      reporter,
+    ];
   },
 });
 
@@ -76,7 +76,7 @@ clientConfig.module.loaders.push({
   loaders: [
     'style',
     'css?modules&importLoaders=1&localIdentName=[name]___[local]---[hash:base64:3]',
-    'postcss'
+    'postcss',
   ],
 });
 
