@@ -4,7 +4,6 @@ var commonConfig = require('./webpack.common.js');
 var config = require('./config');
 var _ = require('lodash');
 var nested = require('postcss-nested');
-var assets = require('postcss-assets');
 var path = require('path');
 
 var wdsHost = config.get('FRONTEND_DEV_HOST');
@@ -45,7 +44,6 @@ var serverConfig = _.merge({}, commonConfig, {
   postcss: function () {
     return [
       nested,
-      assets,
     ];
   },
 });
