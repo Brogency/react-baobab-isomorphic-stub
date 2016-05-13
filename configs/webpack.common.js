@@ -18,7 +18,7 @@ module.exports = {
       },
       {
         test: /\.(eot|woff|woff2|svg|ttf)$/,
-        loader: 'url?limit=50000&name=[name].[ext]',
+        loader: 'url?limit=50000&name=/[name].[ext]',
       },
     ],
     postLoaders: [
