@@ -1,4 +1,5 @@
 import React from 'react';
+import HelloBlock from './components/hello';
 import { Link } from 'react-router';
 
 export default React.createClass({
@@ -11,6 +12,7 @@ export default React.createClass({
         <Link to="/products">
           product
         </Link>
+        <HelloBlock />
       </div>
     );
   },
