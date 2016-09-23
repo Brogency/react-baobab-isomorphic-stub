@@ -58,8 +58,6 @@ var clientConfig = _.merge({}, commonConfig, {
   postcss: function () {
     return [
       nested,
-      stylelint,
-      reporter,
     ];
   },
 });
