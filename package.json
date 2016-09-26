@@ -1,7 +1,7 @@
 {
   "name": "react-baobab-isomporhic-stub",
   "description": "Isomorphic starterkit with server-side React + Baobab rendering.",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": "MIT",
   "main": "dist/server.js",
   "type": "git",
@@ -42,7 +42,7 @@
     "react": "0.14.7",
     "react-dom": "0.14.7",
     "react-helmet": "^3.1.0",
-    "react-router": "2.0.0",
+    "react-router": "2.8.1",
     "redbox-react": "^1.2.3",
     "transform-keys": "0.0.3",
     "url-loader": "^0.5.7",

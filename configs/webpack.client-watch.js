@@ -52,6 +52,7 @@ var clientConfig = _.merge({}, commonConfig, {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
+    new webpack.SourceMapDevToolPlugin(),
   ],
   postcss: function () {
     return [
