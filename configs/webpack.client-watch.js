@@ -13,7 +13,6 @@ var clientConfig = _.merge({}, commonConfig, {
   target: 'web',
   cache: true,
   debug: true,
-  devtool: 'cheap-module-eval-source-map',
   entry: [
     'webpack-dev-server/client?http://' + wdsHost + ':' + wdsPort,
     'webpack/hot/only-dev-server',
